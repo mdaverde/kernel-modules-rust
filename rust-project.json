@@ -1,0 +1,21 @@
+{
+    "crates": [
+        {
+            "display_name": "current_affairs",
+            "root_module": "./current_affairs/main.rs",
+            "edition": "2018",
+            "deps": [
+                {
+                    "crate": 1,
+                    "name": "kernel"
+                }
+            ]
+        },
+        {
+            "display_name": "kernel",
+            "root_module": "../rustforlinux/rust/kernel/lib.rs",
+            "edition": "2018",
+            "deps": []
+        }
+    ]
+}
