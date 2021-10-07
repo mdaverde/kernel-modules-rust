@@ -1,9 +1,8 @@
+//! A kernel module
 #![no_std]
 #![feature(allocator_api, global_asm)]
-
 use kernel::prelude::*;
 use kernel::task::Task;
-use kernel::c_types;
 
 // TODO: get rid of
 use kernel::bindings;
@@ -14,18 +13,13 @@ fn show_context() -> Result<()> {
         pr_info!("current_affairs: in task!");
 
         let current_task = Task::current();
-        let pid: bindings::pid_t = current_task.pid();
-        let tgid: bindings::pid_t = current_task.tgid();
+        let pid = current_task.pid();
+        let tgid = current_task.tgid();
         let name = current_task.comm();
+        let uid = current_task.uid();
+        let euid = current_task.euid();
 
-        // Move into Task?
-        let init_user_ns: *mut bindings::user_namespace =
-            unsafe { &mut bindings::init_user_ns as *mut bindings::user_namespace };
-        let task_uid: bindings::kuid_t = unsafe { bindings::current_uid() };
-        let task_euid: bindings::kuid_t = unsafe { bindings::current_euid() };
-        let uid: bindings::uid_t = unsafe { bindings::from_kuid(init_user_ns, task_uid) };
-        let euid: bindings::uid_t = unsafe { bindings::from_kuid(init_user_ns, task_euid) };
-
+        // TODO: should kernel::task::Task have a debug interface? Does the kernel already have this?
         // TODO: name prints out array in debug form. need to fix this
         pr_info!(
             "{}: in process context ::

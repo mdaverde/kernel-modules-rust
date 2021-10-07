@@ -1,3 +1,4 @@
+//! A kernel module
 #![no_std]
 #![feature(allocator_api, global_asm)]
 
