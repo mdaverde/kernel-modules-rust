@@ -16,12 +16,13 @@ module! {
 }
 
 fn print_process(task: &Task) {
-    pr_info!("| {:>5} | {:>5} |", task.pid(), task.tgid());
+    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", task.pid(), task.tgid(), task.uid(), task.euid());
 }
 
 fn show_processes() {
+    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", "PID", "TGID", "UID", "EUID");
+
     let proc_iter = ProcessIterator::new();
-    pr_info!("| {:>5} | {:>5} |", "PID", "TGID");
     // logs first 25 tasks
     for (i, proc) in (0..25).zip(proc_iter) {
         print_process(&proc);
