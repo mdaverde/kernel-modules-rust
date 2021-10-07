@@ -1,21 +1,32 @@
 {
     "crates": [
         {
+            "display_name": "kernel",
+            "root_module": "../rustforlinux/rust/kernel/lib.rs",
+            "edition": "2018",
+            "deps": []
+        },
+        {
             "display_name": "current_affairs",
             "root_module": "./current_affairs/main.rs",
             "edition": "2018",
             "deps": [
                 {
-                    "crate": 1,
+                    "crate": 0,
                     "name": "kernel"
                 }
             ]
         },
         {
-            "display_name": "kernel",
-            "root_module": "../rustforlinux/rust/kernel/lib.rs",
+            "display_name": "proc_iter",
+            "root_module": "./proc_iter/main.rs",
             "edition": "2018",
-            "deps": []
+            "deps": [
+                {
+                    "crate": 0,
+                    "name": "kernel"
+                }
+            ]
         }
     ]
 }
