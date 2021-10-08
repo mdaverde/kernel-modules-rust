@@ -16,7 +16,13 @@ module! {
 }
 
 fn print_proc(task: &Task) {
-    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", task.tgid(), task.pid(), task.uid(), task.euid());
+    pr_info!(
+        "| {:>5} | {:>5} | {:>5} | {:>5} |",
+        task.tgid(),
+        task.pid(),
+        task.uid(),
+        task.euid()
+    );
 }
 
 fn print_thread(task: &Task) {
@@ -24,7 +30,13 @@ fn print_thread(task: &Task) {
 }
 
 fn show_processes() {
-    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", "TGID", "PID", "UID", "EUID");
+    pr_info!(
+        "| {:>5} | {:>5} | {:>5} | {:>5} |",
+        "TGID",
+        "PID",
+        "UID",
+        "EUID"
+    );
 
     let proc_iter = ProcessIterator::new();
     // let first_proc = proc_iter.next(); Can test PhantomData?
@@ -33,7 +45,8 @@ fn show_processes() {
         print_proc(&proc);
 
         for thread in proc.threads() {
-            if *proc != *thread { // Both are tasks of the same TGID
+            if *proc != *thread {
+                // Both are tasks of the same TGID
                 print_thread(&thread);
             }
         }
