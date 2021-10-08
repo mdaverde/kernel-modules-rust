@@ -6,11 +6,11 @@ use kernel::task::Task;
 
 // TODO: get rid of
 use kernel::bindings;
-struct CurrentAffairs;
+struct CurrentModule;
 
 fn show_context() -> Result<()> {
     if unsafe { bindings::in_task() } {
-        pr_info!("current_affairs: in task!");
+        pr_info!("current: in task!");
 
         let current_task = Task::current();
         let pid = current_task.pid();
@@ -22,14 +22,13 @@ fn show_context() -> Result<()> {
         // TODO: should kernel::task::Task have a debug interface? Does the kernel already have this?
         // TODO: name prints out array in debug form. need to fix this
         pr_info!(
-            "{}: in process context ::
+            "In process context ::
             PID  : {}
             TGID : {}
             UID  : {}
             EUID : {} ({} root)
             name : {:?}
         ",
-            "current_affairs",
             pid,
             tgid,
             uid,
@@ -38,31 +37,31 @@ fn show_context() -> Result<()> {
             name
         );
     } else {
-        pr_alert!("current_affairs: in interrupt context!");
+        pr_alert!("in interrupt context!");
     }
     Ok(())
 }
 
 module! {
-    type: CurrentAffairs,
-    name: b"current_affairs",
+    type: Current,
+    name: b"current",
     author: b"milan@mdaverde.com",
     description: b"Display a few members of the current process task structure",
     license: b"Dual MIT/GPL",
 }
 
-impl KernelModule for CurrentAffairs {
+impl KernelModule for CurrentModule {
     fn init() -> Result<Self> {
         pr_info!("inserted\n");
         pr_info!("size_of(kernel::Task)={}\n", core::mem::size_of::<Task>());
         // let current = Task::current();
         show_context()?;
 
-        Ok(CurrentAffairs)
+        Ok(CurrentModule)
     }
 }
 
-impl Drop for CurrentAffairs {
+impl Drop for CurrentModule {
     fn drop(&mut self) {
         show_context().unwrap();
         pr_info!("Bye world from rust!\n");

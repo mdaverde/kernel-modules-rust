@@ -18,4 +18,4 @@ $ sudo insmod ./current_affairs.ko # Insert module into live kernel
 
 - [Rust for Linux fork](https://github.com/Rust-for-Linux/linux)
 - [Rust port of LDD3](https://github.com/d0u9/Linux-Device-Driver-Rust)
-- [Linux Kernel Programming modules in C](https://github.com/PacktPublishing/Linux-Kernel-Programming)
+- [Linux Kernel Programming modules](https://github.com/PacktPublishing/Linux-Kernel-Programming)

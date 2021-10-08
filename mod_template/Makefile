@@ -16,5 +16,6 @@ modules:
 .PHONY: clean
 clean:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
+	rm -f libmain.rmeta
 
 endif
