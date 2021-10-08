@@ -15,17 +15,28 @@ module! {
     license: b"Dual MIT/GPL",
 }
 
-fn print_process(task: &Task) {
-    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", task.pid(), task.tgid(), task.uid(), task.euid());
+fn print_proc(task: &Task) {
+    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", task.tgid(), task.pid(), task.uid(), task.euid());
+}
+
+fn print_thread(task: &Task) {
+    pr_info!("{:>9} {:>5}", "", task.pid());
 }
 
 fn show_processes() {
-    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", "PID", "TGID", "UID", "EUID");
+    pr_info!("| {:>5} | {:>5} | {:>5} | {:>5} |", "TGID", "PID", "UID", "EUID");
 
     let proc_iter = ProcessIterator::new();
-    // logs first 25 tasks
-    for (i, proc) in (0..25).zip(proc_iter) {
-        print_process(&proc);
+    // let first_proc = proc_iter.next(); Can test PhantomData?
+    // logs first N tasks; make N a module parameter
+    for (_, proc) in (0..1000).zip(proc_iter) {
+        print_proc(&proc);
+
+        for thread in proc.threads() {
+            if *proc != *thread { // Both are tasks of the same TGID
+                print_thread(&thread);
+            }
+        }
         // TODO: consider cond_resched()
     }
 }
