@@ -7,8 +7,8 @@
             "deps": []
         },
         {
-            "display_name": "current_affairs",
-            "root_module": "./current_affairs/main.rs",
+            "display_name": "current",
+            "root_module": "./current/main.rs",
             "edition": "2018",
             "deps": [
                 {
