@@ -60,7 +60,3 @@ impl KernelModule for ProcIterModule {
         Ok(ProcIterModule)
     }
 }
-
-impl Drop for ProcIterModule {
-    fn drop(&mut self) {}
-}

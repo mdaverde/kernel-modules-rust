@@ -3,13 +3,12 @@
 #![feature(allocator_api, global_asm)]
 use kernel::prelude::*;
 use kernel::task::Task;
+use kernel::preempt;
 
-// TODO: get rid of
-use kernel::bindings;
 struct CurrentModule;
 
 fn show_context() -> Result<()> {
-    if unsafe { bindings::in_task() } {
+    if preempt::in_task() {
         let current_task = Task::current();
         let pid = current_task.pid();
         let tgid = current_task.tgid();

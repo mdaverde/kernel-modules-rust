@@ -2,7 +2,7 @@
 
 A collection of experimental Linux kernel modules written for the [Rust for Linux](https://github.com/Rust-for-Linux/linux) project
 
-Everything here is most likely broken but if you want to attempt to run the modules written here, you'll need to run a kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux).
+To run the out-of-treee modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux) which will be rebasing off of the original R4L fork.
 
 ## To run a specific module
 
