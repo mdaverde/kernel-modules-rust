@@ -4,6 +4,7 @@
 
 use kernel::prelude::*;
 use kernel::task::{ProcessIterator, Task};
+use kernel::sync;
 
 struct ProcIterModule;
 
@@ -15,42 +16,31 @@ module! {
     license: b"Dual MIT/GPL",
 }
 
-fn print_proc(task: &Task) {
-    pr_info!(
-        "| {:>5} | {:>5} | {:>5} | {:>5} |",
-        task.tgid(),
-        task.pid(),
-        task.uid(),
-        task.euid()
-    );
-}
-
 fn print_thread(task: &Task) {
-    pr_info!("{:>9} {:>5}", "", task.pid());
+    let comm = task.comm().to_str().unwrap_or("<non-UTF name>");
+    // Can one create a String (and therefore use format!) with the current apis?
+    let name = if let Some(_) = task.mm() { comm } else { "[kernel]" };
+    // lock task?
+    pr_info!("| {:>5} | {:>5} | {:>16}", task.tgid(), task.pid(), name);
 }
 
 fn show_processes() {
     pr_info!(
-        "| {:>5} | {:>5} | {:>5} | {:>5} |",
+        "| {:>5} | {:>5} | {:>16} |",
         "TGID",
         "PID",
-        "UID",
-        "EUID"
+        "name",
     );
 
     let proc_iter = ProcessIterator::new();
     // let first_proc = proc_iter.next(); Can test PhantomData?
     // logs first N tasks; make N a module parameter
     for (_, proc) in (0..1000).zip(proc_iter) {
-        print_proc(&proc);
-
         for thread in proc.threads() {
-            if *proc != *thread {
-                // Both are tasks of the same TGID
-                print_thread(&thread);
-            }
+            // if *proc != *thread {
+            print_thread(&thread);
         }
-        // TODO: consider cond_resched()
+        sync::cond_resched(); // Should live in mod sync?
     }
 }
 
