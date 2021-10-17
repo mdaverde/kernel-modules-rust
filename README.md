@@ -2,14 +2,18 @@
 
 A collection of experimental Linux kernel modules written for the [Rust for Linux](https://github.com/Rust-for-Linux/linux) project
 
-To run the out-of-treee modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux) which will be rebasing off of the original R4L fork.
+To run the out-of-tree modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux) which will continuously be rebasing off the upstream R4L fork.
+
+## Current modules
+
+- [current.ko](./current) - logs (`dmesg`) information about the task context in which the module is running in (usually details on `insmod`)
 
 ## To run a specific module
 
 ```shell
-$ cd ./current_affairs
+$ cd ./current
 $ make KERNELDIR=to/mdaverde/kernel/src LLVM=1 modules
-$ sudo insmod ./current_affairs.ko # Insert module into live kernel
+$ sudo insmod ./current.ko # Insert module into live kernel
 ```
 
 `mod_template/` is meant to be a starting template for future modules
@@ -18,4 +22,5 @@ $ sudo insmod ./current_affairs.ko # Insert module into live kernel
 
 - [Rust for Linux fork](https://github.com/Rust-for-Linux/linux)
 - [Rust port of LDD3](https://github.com/d0u9/Linux-Device-Driver-Rust)
+- [The Linux Kernel Module Programming Guide](https://sysprog21.github.io/lkmpg/)
 - [Linux Kernel Programming modules](https://github.com/PacktPublishing/Linux-Kernel-Programming)

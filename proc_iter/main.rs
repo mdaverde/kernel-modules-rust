@@ -3,8 +3,8 @@
 #![feature(allocator_api, global_asm)]
 
 use kernel::prelude::*;
-use kernel::task::{ProcessIterator, Task};
 use kernel::sync;
+use kernel::task::{ProcessIterator, Task};
 
 struct ProcIterModule;
 
@@ -19,18 +19,17 @@ module! {
 fn print_thread(task: &Task) {
     let comm = task.comm().to_str().unwrap_or("<non-UTF name>");
     // Can one create a String (and therefore use format!) with the current apis?
-    let name = if let Some(_) = task.mm() { comm } else { "[kernel]" };
+    let name = if let Some(_) = task.mm() {
+        comm
+    } else {
+        "[kernel]"
+    };
     // lock task?
     pr_info!("| {:>5} | {:>5} | {:>16}", task.tgid(), task.pid(), name);
 }
 
 fn show_processes() {
-    pr_info!(
-        "| {:>5} | {:>5} | {:>16} |",
-        "TGID",
-        "PID",
-        "name",
-    );
+    pr_info!("| {:>5} | {:>5} | {:>16} |", "TGID", "PID", "name",);
 
     let proc_iter = ProcessIterator::new();
     // let first_proc = proc_iter.next(); Can test PhantomData?

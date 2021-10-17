@@ -1,9 +1,9 @@
 //! A kernel module
 #![no_std]
 #![feature(allocator_api, global_asm)]
+use kernel::preempt;
 use kernel::prelude::*;
 use kernel::task::Task;
-use kernel::preempt;
 
 struct CurrentModule;
 
