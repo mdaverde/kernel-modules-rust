@@ -6,13 +6,17 @@ To run the out-of-tree modules here you'll need to run a custom kernel with the 
 
 ## Current modules
 
-- [current.ko](./current) - logs (`dmesg`) information about the task context in which the module is running in (usually details on `insmod`)
+The modules listed here have only been tested on an Ubuntu 21.04 x86_64 VM
+
+- [current.ko](./current) - logs (`dmesg`) information about the task context in which the module is running in (e.g. the module insert process)
+- [proc_iter.ko](./proc_iter) - logs attributes of every `task_struct` (except `swapper/0`) currently running
+- [mem_layout.ko](./mem_layout) - summarizes memory layout of the running kernel
 
 ## To run a specific module
 
 ```shell
 $ cd ./current
-$ make KERNELDIR=to/mdaverde/kernel/src LLVM=1 modules
+$ make KERNELDIR=/to/mdaverde/kernel/src LLVM=1 modules
 $ sudo insmod ./current.ko # Insert module into live kernel
 ```
 
