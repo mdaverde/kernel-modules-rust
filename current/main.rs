@@ -3,37 +3,32 @@
 #![feature(allocator_api, global_asm)]
 use kernel::preempt;
 use kernel::prelude::*;
-use kernel::task::Task;
+use kernel::task::{Task, TaskRef};
 
 struct CurrentModule;
+
+// To get around the orpan rule
+struct DebugTaskWrapper<'taskref, 'a>(&'taskref TaskRef<'a>);
+
+impl<'taskref, 'a> core::fmt::Debug for DebugTaskWrapper<'taskref, 'a> {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        let name = &self.0.comm().to_str().unwrap_or("<utf8 err>");
+        f.debug_struct("Task")
+            .field("name", name)
+            .field("pid", &self.0.pid())
+            .field("tgid", &self.0.tgid())
+            .field("uid", &self.0.uid())
+            .field("euid", &self.0.euid())
+            .finish_non_exhaustive()
+    }
+}
 
 fn show_context() -> Result<()> {
     if preempt::in_task() {
         let current_task = Task::current();
-        let pid = current_task.pid();
-        let tgid = current_task.tgid();
-        let name = current_task.comm();
-        let uid = current_task.uid();
-        let euid = current_task.euid();
-
-        // TODO: should kernel::task::Task have a debug interface? Does the kernel already have this?
-        pr_info!(
-            "In process context:
-            PID  : {}
-            TGID : {}
-            UID  : {}
-            EUID : {} ({} root)
-            name : {}
-        ",
-            pid,
-            tgid,
-            uid,
-            euid,
-            if euid == 0 { "as" } else { "not as" },
-            name.to_str().unwrap(),
-        );
+        pr_info!("In process context: {:#?}\n", DebugTaskWrapper(&current_task));
     } else {
-        pr_alert!("in interrupt context!");
+        pr_alert!("In interrupt context\n");
     }
     Ok(())
 }

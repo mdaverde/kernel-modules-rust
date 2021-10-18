@@ -11,7 +11,7 @@ use kernel::prelude::*;
 #[cfg(CONFIG_KASAN)]
 use kernel::bindings::{KASAN_SHADOW_END, KASAN_SHADOW_START};
 
-// Why can't I use isize here?
+// Can't use isize here?
 const BYTES_MB: i64 = 2_i64.pow(20);
 const BYTES_GB: i64 = 2_i64.pow(30);
 

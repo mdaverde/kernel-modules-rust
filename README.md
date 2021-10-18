@@ -1,6 +1,6 @@
 # Linux kernel modules written in Rust
 
-A collection of experimental Linux kernel modules written for the [Rust for Linux](https://github.com/Rust-for-Linux/linux) project
+A collection of in-progress experimental Linux kernel modules written for the [Rust for Linux](https://github.com/Rust-for-Linux/linux) project
 
 To run the out-of-tree modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux) which will continuously be rebasing off the upstream R4L fork.
 
