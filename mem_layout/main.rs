@@ -4,7 +4,7 @@
 
 use kernel::bindings::{
     high_memory, FIXADDR_SIZE, FIXADDR_START, MODULES_END, MODULES_VADDR, PAGE_OFFSET, VMALLOC_END,
-    VMALLOC_START,
+    VMALLOC_START, TASK_SIZE
 };
 use kernel::prelude::*;
 use kernel::task::Task;
@@ -12,12 +12,12 @@ use kernel::task::Task;
 #[cfg(CONFIG_KASAN)]
 use kernel::bindings::{KASAN_SHADOW_END, KASAN_SHADOW_START};
 
-// Can't use usize here?
+// usize
 const BYTES_KB: u64 = 2_u64.pow(10);
 const BYTES_MB: u64 = 2_u64.pow(20);
 const BYTES_GB: u64 = 2_u64.pow(30);
 
-// TODO: macros should also encapsulate the memory calculation
+// TODO: move memory calc into macros
 // Should use format_args here?
 macro_rules! pr_b {
     ($($pr_args: expr), +) => {
@@ -47,7 +47,7 @@ struct MemLayout;
 
 impl MemLayout {
     fn kernel() -> Result<()> {
-        pr_info!("Kernel layout (decreasing by address)\n");
+        pr_info!("-> {}\n", "Kernel layout (decreasing by address)");
 
         #[cfg(CONFIG_ARM)]
         pr_info!(
@@ -98,8 +98,9 @@ impl MemLayout {
 
     fn userspace() -> Result<()> {
         let current = Task::current();
+
         pr_info!(
-            "Current task user VAS layout: {} (pid: {})\n",
+            "-> Current task user VAS layout: {} (pid: {})\n",
             current.comm().to_str()?,
             current.pid()
         );
@@ -141,6 +142,7 @@ impl MemLayout {
                 mm.end_code,
                 mm.end_code - mm.start_code
             );
+            pr_info!("-> NOTE: TASK_SIZE = {} GB\n", TASK_SIZE() / BYTES_GB)
         } else {
             pr_info!("No current->mm_struct found\n");
         }
