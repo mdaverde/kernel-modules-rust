@@ -26,7 +26,10 @@ impl<'taskref, 'a> core::fmt::Debug for DebugTaskWrapper<'taskref, 'a> {
 fn show_context() -> Result<()> {
     if preempt::in_task() {
         let current_task = Task::current();
-        pr_info!("In process context: {:#?}\n", DebugTaskWrapper(&current_task));
+        pr_info!(
+            "In process context: {:#?}\n",
+            DebugTaskWrapper(&current_task)
+        );
     } else {
         pr_alert!("In interrupt context\n");
     }

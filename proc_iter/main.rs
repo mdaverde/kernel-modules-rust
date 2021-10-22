@@ -22,7 +22,7 @@ fn print_thread(task: &Task) {
     let name = if let Some(_) = task.mm() {
         comm
     } else {
-        "[kernel]"
+        "[kernel]" // TODO: should be [comm]
     };
     // lock task?
     pr_info!("| {:>5} | {:>5} | {:>16}", task.tgid(), task.pid(), name);
