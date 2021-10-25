@@ -54,12 +54,20 @@ rust-analyzer:
 	const analyzerPath = "./rust-project.json";
 
 	const analyzerObj = {
-		crates: [{
-			display_name: "kernel",
-			root_module: `${kernelDir}/rust/kernel/lib.rs`,
-			edition: "2018",
-			deps: []
-		}]
+		crates: [
+			{
+				display_name: "kernel",
+				root_module: `${kernelDir}/rust/kernel/lib.rs`,
+				edition: "2018",
+				deps: []
+			},
+			{
+				display_name: "alloc",
+				root_module: `${kernelDir}/rust/alloc/lib.rs`,
+				edition: "2018",
+				deps: []
+			},
+		]
 	};
 
 	function addKernelModule(kernelModuleName) {
@@ -67,7 +75,7 @@ rust-analyzer:
 			display_name: kernelModuleName,
 			root_module: `./${kernelModuleName}/main.rs`,
 			edition: "2018",
-			deps: [{ crate: 0, name: "kernel" }]
+			deps: [{ crate: 0, name: "kernel" }, { crate: 1, name: "alloc" }]
 		};
 		analyzerObj.crates.push(kernelModuleCrate);
 	}
