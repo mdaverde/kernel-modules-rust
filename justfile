@@ -1,6 +1,5 @@
 set dotenv-load := true
 
-
 KERNELDIR := env_var("KERNELDIR")
 LLVM := env_var("LLVM")
 KERNEL_MODULES := "current proc_iter mem_layout lowlevel_mem"
@@ -23,7 +22,7 @@ build module=DEFAULT_MODULE:
 	const llvmParam = "{{LLVM}}";
 	for (const moduleName of kernelModules.split(" ")) {
 		await cd(`./${moduleName}`);
-		await $`make KERNELDIR=${kernelDir} LLVM=${llvmParam} modules`;
+		await $`make KRUSTFLAGS="--color=always" KERNELDIR=${kernelDir} LLVM=${llvmParam} modules`;
 	}
 
 clean module=DEFAULT_MODULE:
