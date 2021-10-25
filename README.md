@@ -12,6 +12,8 @@ The modules listed here have only been tested on an Ubuntu 21.04 x86_64 VM
 - [proc_iter.ko](./proc_iter) - logs attributes of every `task_struct` (except `swapper/0`) currently running
 - [mem_layout.ko](./mem_layout) - summarizes memory layout of the running kernel
 
+`mod_template/` is meant to be a starting template for future modules
+
 ## To run a specific module
 
 This project uses [just](https://github.com/casey/just) and [zx](https://github.com/google/zx) for project-wide task management but the instructions below should not require extra deps to run a specific module.
@@ -23,8 +25,6 @@ $ cd ./current
 $ make KERNELDIR=/to/mdaverde/kernel/src LLVM=1 modules
 $ sudo insmod ./current.ko # Insert module into live kernel
 ```
-
-`mod_template/` is meant to be a starting template for future modules
 
 ## References
 

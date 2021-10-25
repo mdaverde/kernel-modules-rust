@@ -4,6 +4,10 @@ set dotenv-load := true
 KERNELDIR := env_var("KERNELDIR")
 LLVM := env_var("LLVM")
 KERNEL_MODULES := "current proc_iter mem_layout lowlevel_mem"
+DEFAULT_MODULE := "all"
+
+default:
+	@just --list
 
 vars:
 	echo "KERNELDIR={{KERNELDIR}}"
@@ -12,7 +16,7 @@ vars:
 fmt:
 	rustfmt */*.rs
 
-build module:
+build module=DEFAULT_MODULE:
 	#!/usr/bin/env zx
 	const kernelModules = "{{module}}" === "all" ? "{{KERNEL_MODULES}}" : "{{module}}";
 	const kernelDir = "{{KERNELDIR}}";
@@ -22,7 +26,7 @@ build module:
 		await $`make KERNELDIR=${kernelDir} LLVM=${llvmParam} modules`;
 	}
 
-clean module:
+clean module=DEFAULT_MODULE:
 	#!/usr/bin/env zx
 	const kernelModules = "{{module}}" === "all" ? "{{KERNEL_MODULES}}" : "{{module}}";
 	const kernelDir = "{{KERNELDIR}}";
@@ -73,6 +77,5 @@ rust-analyzer:
 	}
 
 	fs.writeFileSync(analyzerPath, JSON.stringify(analyzerObj, null, 2));
-
 
 
