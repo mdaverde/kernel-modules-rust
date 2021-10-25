@@ -2,7 +2,7 @@ set dotenv-load := true
 
 KERNELDIR := env_var("KERNELDIR")
 LLVM := env_var("LLVM")
-KERNEL_MODULES := "current proc_iter mem_layout lowlevel_mem"
+KERNEL_MODULES := "current proc_iter mem_layout bsa"
 DEFAULT_MODULE := "all"
 
 default:
