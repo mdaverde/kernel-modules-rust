@@ -11,6 +11,7 @@ The modules listed here have only been tested on an Ubuntu 21.04 x86_64 VM
 - [current.ko](./current) - logs (`dmesg`) information about the task context in which the module is running in (e.g. the module insert process)
 - [proc_iter.ko](./proc_iter) - logs attributes of every `task_struct` (except `swapper/0`) currently running
 - [mem_layout.ko](./mem_layout) - summarizes memory layout of the running kernel
+- [bsa.ko](./bsa) - custom wrapper around a few of the kernel page allocation APIs and logs physical continuity
 
 `mod_template/` is meant to be a starting template for future modules
 
