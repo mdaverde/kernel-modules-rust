@@ -18,7 +18,7 @@ fmt:
 build module=DEFAULT_MODULE:
 	#!/usr/bin/env zx
 	const kernelModules = "{{module}}" === "all" ? "{{KERNEL_MODULES}}" : "{{module}}";
-	const kernelDir = "{{KERNELDIR}}";
+	const kernelDir = "../{{KERNELDIR}}";
 	const llvmParam = "{{LLVM}}";
 	for (const moduleName of kernelModules.split(" ")) {
 		await cd(`./${moduleName}`);
@@ -28,7 +28,7 @@ build module=DEFAULT_MODULE:
 clean module=DEFAULT_MODULE:
 	#!/usr/bin/env zx
 	const kernelModules = "{{module}}" === "all" ? "{{KERNEL_MODULES}}" : "{{module}}";
-	const kernelDir = "{{KERNELDIR}}";
+	const kernelDir = "../{{KERNELDIR}}";
 	const llvmParam = "{{LLVM}}";
 	for (const moduleName of kernelModules.split(" ")) {
 		await cd(`./${moduleName}`);
@@ -36,11 +36,16 @@ clean module=DEFAULT_MODULE:
 	}
 
 create module:
-	cp -r ./mod_template {{module}}
-	sed -i 's/mod_template/{{module}}/g' ./{{module}}/Makefile
-	sed -i 's/ModTemplate/{{module}}/g' ./{{module}}/main.rs
-	# TODO: rust-analyzer generation
-	# TODO: add to KERNEL_MODULES variable
+	#!/usr/bin/env zx
+	const moduleDir = "{{module}}";
+	await $`cp -r ./mod_template ${moduleDir}`;
+	await $`sed -i 's/mod_template/${moduleDir}/g' ./${moduleDir}/Makefile`;
+	const moduleName = moduleDir.split("_").map((word) => {
+		return word.charAt(0).toUpperCase() + word.slice(1)
+	}).join("");
+	await $`sed -i 's/ModTemplate/${moduleName}/g' ./${moduleDir}/main.rs`;
+	// TODO: rust-analyzer generation
+	// TODO: add to KERNEL_MODULES variable
 
 rust-analyzer:
 	#!/usr/bin/env zx
