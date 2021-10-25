@@ -7,7 +7,7 @@
 *.mod.c
 *.rmeta
 *.order
-NOTES.m
+NOTES.md
 .env
 rust-project.json
 

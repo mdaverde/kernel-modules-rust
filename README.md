@@ -14,6 +14,10 @@ The modules listed here have only been tested on an Ubuntu 21.04 x86_64 VM
 
 ## To run a specific module
 
+This project uses [just](https://github.com/casey/just) and [zx](https://github.com/google/zx) for project-wide task management but the instructions below should not require extra deps to run a specific module.
+
+### With make
+
 ```shell
 $ cd ./current
 $ make KERNELDIR=/to/mdaverde/kernel/src LLVM=1 modules

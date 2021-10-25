@@ -3,8 +3,8 @@
 #![feature(allocator_api, global_asm)]
 
 use kernel::bindings::{
-    high_memory, FIXADDR_SIZE, FIXADDR_START, MODULES_END, MODULES_VADDR, PAGE_OFFSET, VMALLOC_END,
-    VMALLOC_START, TASK_SIZE
+    high_memory, FIXADDR_SIZE, FIXADDR_START, MODULES_END, MODULES_VADDR, PAGE_OFFSET, TASK_SIZE,
+    VMALLOC_END, VMALLOC_START,
 };
 use kernel::prelude::*;
 use kernel::task::Task;
@@ -159,7 +159,7 @@ module! {
     params: {
         show_userspace: bool {
             default: false,
-            permissions: 0, // not available in sysfs
+            permissions: 0, // will not be available in sysfs
             description: b"Show few userspace VAS details (default = 0/false)",
         },
     },
