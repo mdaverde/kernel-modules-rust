@@ -60,7 +60,7 @@ impl KmallocBox {
 
 module! {
     type: KmallocBox,
-    name: b"mod_template",
+    name: b"kmalloc_box",
     author: b"milan@mdaverde.com",
     description: b"A kernel module",
     license: b"Dual MIT/GPL",

@@ -49,10 +49,11 @@ $ cd ./current
 $ make KERNELDIR=/to/rust/kernel LLVM=1 modules
 $ sudo insmod ./current.ko # install module
 ```
-### Future module ideas
+
+### Future ideas
 
 - [Procfs](https://www.kernel.org/doc/html/latest/filesystems/proc.html) recreation
-- Module stacking example
+- Module stacking
 
 ## References
 

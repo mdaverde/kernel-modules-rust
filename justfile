@@ -40,6 +40,7 @@ create module:
 	const moduleDir = "{{module}}";
 	await $`cp -r ./mod_template ${moduleDir}`;
 	await $`sed -i 's/mod_template/${moduleDir}/g' ./${moduleDir}/Makefile`;
+	await $`sed -i 's/mod_template/${moduleDir}/g' ./${moduleDir}/main.rs`;
 	const moduleName = moduleDir.split("_").map((word) => {
 		return word.charAt(0).toUpperCase() + word.slice(1)
 	}).join("");
