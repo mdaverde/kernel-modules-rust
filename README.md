@@ -54,6 +54,7 @@ $ sudo insmod ./current.ko # install module
 
 - [Procfs](https://www.kernel.org/doc/html/latest/filesystems/proc.html) recreation
 - Module stacking
+- Integrate Cargo?
 
 ## References
 
