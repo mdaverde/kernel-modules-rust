@@ -1,4 +1,5 @@
 .vscode/
+.vscode-ctags
 *.cmd
 *.o
 *.symvers
@@ -7,6 +8,7 @@
 *.mod.c
 *.rmeta
 *.order
+*.d
 NOTES.md
 .env
 rust-project.json
