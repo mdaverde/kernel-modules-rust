@@ -6,6 +6,14 @@ use alloc::boxed::Box;
 use core::{ptr, slice};
 use kernel::prelude::*;
 
+module! {
+    type: KmallocBox,
+    name: b"kmalloc_box",
+    author: b"milan@mdaverde.com",
+    description: b"A kernel module",
+    license: b"Dual MIT/GPL",
+}
+
 struct KAllocator;
 
 unsafe impl alloc::alloc::Allocator for KAllocator {
@@ -56,14 +64,6 @@ impl KmallocBox {
 
         Ok(())
     }
-}
-
-module! {
-    type: KmallocBox,
-    name: b"kmalloc_box",
-    author: b"milan@mdaverde.com",
-    description: b"A kernel module",
-    license: b"Dual MIT/GPL",
 }
 
 impl KernelModule for KmallocBox {

@@ -12,6 +12,21 @@ use kernel::task::Task;
 #[cfg(CONFIG_KASAN)]
 use kernel::bindings::{KASAN_SHADOW_END, KASAN_SHADOW_START};
 
+module! {
+    type: MemLayout,
+    name: b"mem_layout",
+    author: b"milan@mdaverde.com",
+    description: b"A kernel module",
+    license: b"Dual MIT/GPL",
+    params: {
+        show_userspace: bool {
+            default: false,
+            permissions: 0, // will not be available in sysfs
+            description: b"Show few userspace VAS details (default = 0/false)",
+        },
+    },
+}
+
 // usize
 const BYTES_KB: u64 = 2_u64.pow(10);
 const BYTES_MB: u64 = 2_u64.pow(20);
@@ -148,21 +163,6 @@ impl MemLayout {
         }
         Ok(())
     }
-}
-
-module! {
-    type: MemLayout,
-    name: b"mem_layout",
-    author: b"milan@mdaverde.com",
-    description: b"A kernel module",
-    license: b"Dual MIT/GPL",
-    params: {
-        show_userspace: bool {
-            default: false,
-            permissions: 0, // will not be available in sysfs
-            description: b"Show few userspace VAS details (default = 0/false)",
-        },
-    },
 }
 
 impl KernelModule for MemLayout {

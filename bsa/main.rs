@@ -6,6 +6,21 @@ use alloc::vec::Vec;
 use kernel::{bindings, c_types};
 use kernel::{prelude::*, PAGE_SIZE};
 
+module! {
+    type: BSA,
+    name: b"bsa",
+    author: b"milan@mdaverde.com",
+    description: b"A kernel module showcasing BSA APIs",
+    license: b"Dual MIT/GPL",
+    params: {
+        alloc_order: u32 {
+            default: 3,
+            permissions: 0,
+            description: b"Order of the allocation (default = 3)",
+        },
+    },
+}
+
 // SAFETY: start_vaddr must live within kernel's lowmem region
 unsafe fn log_physical_pages(
     start_vaddr: *mut c_types::c_void,
@@ -53,7 +68,7 @@ impl Drop for FreePages {
     }
 }
 
-// For init and drop of KernelModule
+// To be sent across init & drop threads of module
 unsafe impl Sync for FreePages {}
 unsafe impl Send for FreePages {}
 
@@ -112,21 +127,6 @@ impl BSA {
 
         Ok(())
     }
-}
-
-module! {
-    type: BSA,
-    name: b"bsa",
-    author: b"milan@mdaverde.com",
-    description: b"A kernel module showcasing BSA APIs",
-    license: b"Dual MIT/GPL",
-    params: {
-        alloc_order: u32 {
-            default: 3,
-            permissions: 0,
-            description: b"Order of the allocation (default = 3)",
-        },
-    },
 }
 
 impl KernelModule for BSA {

@@ -4,8 +4,6 @@
 
 use kernel::prelude::*;
 
-struct ModTemplate;
-
 module! {
     type: ModTemplate,
     name: b"mod_template",
@@ -13,6 +11,8 @@ module! {
     description: b"A kernel module",
     license: b"Dual MIT/GPL",
 }
+
+struct ModTemplate;
 
 impl KernelModule for ModTemplate {
     fn init() -> Result<Self> {

@@ -6,8 +6,6 @@ use kernel::prelude::*;
 use kernel::sync;
 use kernel::task::{ProcessIterator, Task};
 
-struct ProcIterModule;
-
 module! {
     type: ProcIterModule,
     name: b"proc_iter",
@@ -15,6 +13,8 @@ module! {
     description: b"A kernel module",
     license: b"Dual MIT/GPL",
 }
+
+struct ProcIterModule;
 
 fn print_thread(task: &Task) {
     let comm = task.comm().to_str().unwrap_or("<non-UTF name>");

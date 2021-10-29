@@ -5,6 +5,14 @@ use kernel::preempt;
 use kernel::prelude::*;
 use kernel::task::{Task, TaskRef};
 
+module! {
+    type: CurrentModule,
+    name: b"current",
+    author: b"milan@mdaverde.com",
+    description: b"Display a few members of the current process task structure",
+    license: b"Dual MIT/GPL",
+}
+
 struct CurrentModule;
 
 // To get around the orpan rule
@@ -34,14 +42,6 @@ fn show_context() -> Result<()> {
         pr_alert!("In interrupt context\n");
     }
     Ok(())
-}
-
-module! {
-    type: CurrentModule,
-    name: b"current",
-    author: b"milan@mdaverde.com",
-    description: b"Display a few members of the current process task structure",
-    license: b"Dual MIT/GPL",
 }
 
 impl KernelModule for CurrentModule {
