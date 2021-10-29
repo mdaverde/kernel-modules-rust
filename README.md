@@ -52,9 +52,9 @@ $ sudo insmod ./current.ko # install module
 
 ### Future ideas
 
-- [Procfs](https://www.kernel.org/doc/html/latest/filesystems/proc.html) recreation
-- Module stacking
-- Integrate Cargo?
+- [procfs](https://www.kernel.org/doc/html/latest/filesystems/proc.html) recreation
+- module stacking
+- use of `no_std` crates (through `cargo`?)
 
 ## References
 
