@@ -46,7 +46,6 @@ impl CurrentModule {
     }
 }
 
-
 impl KernelModule for CurrentModule {
     fn init() -> Result<Self> {
         let current_mod = CurrentModule;
