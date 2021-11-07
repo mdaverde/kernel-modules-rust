@@ -2,7 +2,7 @@
 
 A collection of in-progress experimental Linux kernel modules written for the [Rust for Linux](https://github.com/Rust-for-Linux/linux) project
 
-To run the out-of-tree modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux) which will continuously be rebasing off the upstream R4L fork.
+To run the out-of-tree modules here you'll need to run a custom kernel with the changes developed in [mdaverde/linux](https://github.com/mdaverde/linux/tree/kernel-modules) which will continuously be rebasing off the upstream R4L fork.
 
 This project uses [just](https://github.com/casey/just) and [zx](https://github.com/google/zx) for project-wide task management but installing a specific module should just require make.
 
