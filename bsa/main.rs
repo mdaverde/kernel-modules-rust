@@ -130,7 +130,7 @@ impl BSA {
 }
 
 impl KernelModule for BSA {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         let mut bsa = BSA::try_new()?;
         bsa.run(*alloc_order.read())?;
         Ok(bsa)

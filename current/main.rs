@@ -47,7 +47,7 @@ impl CurrentModule {
 }
 
 impl KernelModule for CurrentModule {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         let current_mod = CurrentModule;
         current_mod.run()?;
         Ok(current_mod)

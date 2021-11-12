@@ -67,7 +67,7 @@ impl KmallocBox {
 }
 
 impl KernelModule for KmallocBox {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         let mut kmalloc_box = KmallocBox::new();
         kmalloc_box.run()?;
         Ok(kmalloc_box)

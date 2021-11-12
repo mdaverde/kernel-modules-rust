@@ -166,7 +166,7 @@ impl MemLayout {
 }
 
 impl KernelModule for MemLayout {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         MemLayout::kernel()?;
         if *show_userspace.read() {
             MemLayout::userspace()?;

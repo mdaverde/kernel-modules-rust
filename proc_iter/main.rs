@@ -65,7 +65,7 @@ fn show_processes() {
 }
 
 impl KernelModule for ProcIterModule {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         show_processes();
         Ok(ProcIterModule)
     }

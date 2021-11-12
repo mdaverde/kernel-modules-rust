@@ -15,7 +15,7 @@ module! {
 struct ModTemplate;
 
 impl KernelModule for ModTemplate {
-    fn init() -> Result<Self> {
+    fn init(_name: &'static CStr, _module: &'static ThisModule) -> Result<Self> {
         pr_info!("hello from rust\n");
         Ok(ModTemplate)
     }
